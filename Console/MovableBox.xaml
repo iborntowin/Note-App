@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="Console.MovableBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             MouseLeftButtonDown="UserControl_MouseLeftButtonDown"
+             MouseLeftButtonUp="UserControl_MouseLeftButtonUp"
+             MouseMove="UserControl_MouseMove">
+    <UserControl.Resources>
+        <Style x:Key="RoundedButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="#282828" />
+            <Setter Property="Background" Value="#B3B3B3" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Padding" Value="10 5" />
+            <Setter Property="FontFamily" Value="sans serif" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="4"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#181818" />
+                    <Setter Property="Foreground" Value="#B3B3B3" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#181818" />
+                    <Setter Property="Foreground" Value="#B3B3B3" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Border x:Name="DraggableBorder" Background="LightGray" Width="200" Height="150" CornerRadius="10" BorderBrush="Black" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Background="DarkGray" Height="30" CornerRadius="10 10 0 0">
+                <TextBox FontFamily="Inconsolata" GotKeyboardFocus="ContentTitleBox_GotKeyboardFocus"  BorderThickness="0"  Background="DarkGray" x:Name="TitleTextBox" Text="Title" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black"/>
+            </Border>
+
+            <TextBox FontFamily="Source Code Pro" Grid.Row="1" x:Name="ContentTextBox" Text="Content" Margin="10" GotKeyboardFocus="ContentTextBox_GotKeyboardFocus"/>
+
+            <!-- Modify/Edit Button -->
+            <Button Style="{StaticResource RoundedButtonStyle}" x:Name="ToggleModifyEditButton" Grid.Row="2" Width="60" Height="20" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" Click="ToggleModifyEditButton_Click">
+                <ContentControl Content="Modify"/>
+            </Button>
+
+            <StackPanel x:Name="ModifyButtonsPanel" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" Visibility="Collapsed">
+                <Button FontFamily="Source Code Pro" Style="{StaticResource RoundedButtonStyle}" Width="60" Height="20" Content="Delete" Click="DeleteButton_Click"/>
+            </StackPanel>
+            
+        </Grid>
+        
+    </Border>
+</UserControl>
